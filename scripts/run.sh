@@ -31,7 +31,7 @@ if [ ! -f "$JAVA_FILE" ]; then
 fi
 
 echo "Compiling $JAVA_FILE..."
-javac -cp "$SRC_DIR" "$JAVA_FILE"
+javac -d "$SRC_DIR" -cp "$SRC_DIR" "$JAVA_FILE"
 
 if [ $? -eq 0 ]; then
     echo "Compilation successful. Running $PROBLEM..."
