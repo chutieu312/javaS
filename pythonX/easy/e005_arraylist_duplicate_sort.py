@@ -8,10 +8,12 @@ Given a list of integers, perform the following operations:
 3. Return the modified list
 
 Input:
-- A list of integers (may contain duplicates)
+- lst: list[int] - A list of integers (may contain duplicates)
+  Example: [5, 2, 8, 2, 9, 5, 3, 8]
 
 Output:
-- A list with duplicates removed and elements sorted
+- list[int] - A list with duplicates removed and elements sorted
+  Example: [2, 3, 5, 8, 9]
 
 Constraints:
 - 0 ≤ list size ≤ 1000
@@ -32,13 +34,13 @@ Space Complexity: O(n) - for storing unique elements
 
 def solution(lst: list[int]) -> list[int]:
     """
-    TODO: Implement the remove duplicates and sort logic
+    done: Implement the remove duplicates and sort logic
     1. Use dict.fromkeys() to remove duplicates while preserving order
     2. Convert dict keys to list
     3. Sort the list using sorted() or list.sort()
     4. Return the sorted list
     """
-    pass
+    return sorted(set(lst))
 
 
 if __name__ == "__main__":
