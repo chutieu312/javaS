@@ -63,49 +63,68 @@ public class E037_BankAccountSystem {
     
     static class Bank {
         
-        // TODO: Declare HashMap to store accounts
+        
         // Map from accountId (Integer) to balance (Long)
+        private HashMap<Integer, Long> accounts;
         
         public Bank() {
-            // TODO: Initialize the HashMap
+            accounts = new HashMap<>();
         }
         
         public boolean createAccount(int accountId, long initialDeposit) {
-            // TODO: Create new account
+            
             // 1. Check if accountId already exists in map
             // 2. If exists, return false
             // 3. If not exists, add to map with initialDeposit and return true
+
+            if (this.accounts.containsKey(accountId)) {
+                return false;
+            }
             
-            return false;
+            this.accounts.put(accountId, initialDeposit);
+
+            return true;
         }
         
         public boolean deposit(int accountId, long amount) {
-            // TODO: Deposit money
+            
             // 1. Check if accountId exists
             // 2. If not exists, return false
             // 3. Get current balance, add amount, update map, return true
+            if (!accounts.containsKey(accountId)) {
+                return false;
+            }
+            long currentBalance = accounts.get(accountId);
+            accounts.put(accountId, currentBalance + amount);
             
-            return false;
+            return true;
         }
         
         public boolean withdraw(int accountId, long amount) {
-            // TODO: Withdraw money
+            
             // 1. Check if accountId exists
             // 2. If not exists, return false
             // 3. Get current balance
             // 4. If balance < amount, return false (insufficient funds)
             // 5. Subtract amount from balance, update map, return true
-            
+            if (!accounts.containsKey(accountId)) {
+                return false;
+            }
+            long currentBalance = accounts.get(accountId);
+            if (currentBalance < amount) {
+                return false;  // Insufficient funds
+            }   
+            accounts.put(accountId, currentBalance - amount);
             return false;
         }
         
         public Long getBalance(int accountId) {
-            // TODO: Get account balance
+            
             // 1. Check if accountId exists in map
             // 2. If exists, return balance
             // 3. If not exists, return null
             
-            return null;
+            return accounts.get(accountId);
         }
     }
     
