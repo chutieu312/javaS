@@ -1,6 +1,6 @@
 package com.example.javas.easy;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * E035: Design HashSet
@@ -54,30 +54,34 @@ public class E035_DesignHashSet {
     
     static class MyHashSet {
         
-        // TODO: Declare data structure
-        // Simple approach: boolean array of size 1000001
-        // Or bucket approach: array of lists
+        private static final int BUCKET_SIZE = 1000;
+        private ArrayList<Integer>[] buckets;
         
+        @SuppressWarnings("unchecked")
         public MyHashSet() {
-            // TODO: Initialize the data structure
-            // Simple: create boolean array of size 1000001
+            this.buckets = new ArrayList[BUCKET_SIZE];
+
+            for (int i = 0; i < buckets.length; i++) 
+                buckets[i] = new ArrayList<>();
+        }
+
+        private int hash(int key) {
+            return key%BUCKET_SIZE;
         }
         
         public void add(int key) {
-            // TODO: Add key to the set
-            // Simple: set array[key] = true
+            int bucket = hash(key);
+
+            if (!buckets[bucket].contains(key)) 
+                buckets[bucket].add(key);
         }
-        
+
         public void remove(int key) {
-            // TODO: Remove key from the set
-            // Simple: set array[key] = false
+            buckets[hash(key)].remove(Integer.valueOf(key));
         }
         
         public boolean contains(int key) {
-            // TODO: Check if key exists
-            // Simple: return array[key]
-            
-            return false;
+            return buckets[hash(key)].contains(key);
         }
     }
     

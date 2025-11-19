@@ -57,24 +57,23 @@ public class E034_ParkingSystem {
     
     static class ParkingSystem {
         
-        // TODO: Declare variables to track available slots
-        // - int for big slots
-        // - int for medium slots  
-        // - int for small slots
-        // (Or use an int array of size 4, ignoring index 0)
+        // Array-based approach: slots[1]=big, slots[2]=medium, slots[3]=small
+        // Index 0 is unused to match carType values (1, 2, 3)
+        private int[] slots;
         
         public ParkingSystem(int big, int medium, int small) {
-            // TODO: Initialize the available slots for each type
+            // Initialize array with index 0 unused, then big, medium, small
+            // This allows direct indexing: carType 1->big, 2->medium, 3->small
+            slots = new int[]{0, big, medium, small};
         }
         
         public boolean addCar(int carType) {
-            // TODO: Check and park car
-            // 1. Based on carType (1=big, 2=medium, 3=small):
-            //    - Check if corresponding slot count > 0
-            //    - If yes: decrement count and return true
-            //    - If no: return false
-            
-            return false;
+            // Check if slots available for this carType
+            if (slots[carType] > 0) {
+                slots[carType]--;  // Decrement available slots
+                return true;       // Car parked successfully
+            }
+            return false;  // No slots available
         }
     }
     

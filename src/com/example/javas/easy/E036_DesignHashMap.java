@@ -59,33 +59,56 @@ public class E036_DesignHashMap {
     
     static class MyHashMap {
         
-        // TODO: Declare data structures
-        // Simple approach:
-        // - boolean array to track if key exists
-        // - int array to store values
-        
-        public MyHashMap() {
-            // TODO: Initialize the data structures
-            // Create arrays of size 1000001
+        static class Entry {
+            int key;
+            int value;
+
+            Entry(int k, int v) {
+                key = k;
+                value = v;
+            }
         }
         
-        public void put(int key, int value) {
-            // TODO: Insert or update key-value pair
-            // 1. Mark key as existing
-            // 2. Store value at key index
+        private static final int BUCKET_SIZE = 1000;
+        private ArrayList<Entry>[] buckets;
+        
+        @SuppressWarnings("unchecked")
+        public MyHashMap() {
+           buckets = new ArrayList[BUCKET_SIZE];
+           for (int i = 0; i < buckets.length; i++) {
+                buckets[i] = new ArrayList<>();
+           }
+        }
+
+        private int hash(int k){
+            return k % BUCKET_SIZE;
+        }
+        
+        public void put(int key, int value) { 
+            int b = hash(key);
+
+            for (Entry entry : buckets[b]) {
+                if (entry.key == key) {
+                    entry.value = value;
+                    return;
+                }
+            }
+            buckets[b].add(new Entry(key, value));
         }
         
         public int get(int key) {
-            // TODO: Get value for key
-            // 1. Check if key exists
-            // 2. If yes, return value; if no, return -1
-            
+            int b = hash(key);
+
+            for (Entry entry : buckets[b])         
+                if (entry.key == key) 
+                    return entry.value;
+
             return -1;
         }
         
         public void remove(int key) {
-            // TODO: Remove key
-            // Mark key as not existing
+            int b = hash(key);
+            buckets[b].removeIf(e -> e.key == key);
         }
     }
     
